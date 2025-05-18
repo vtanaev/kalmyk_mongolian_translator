@@ -3,6 +3,10 @@ import re
 
 def to_kalmyk(text):
     text = re.sub('ё', 'й', text)
+    text = re.sub(r'гоо', 'ха', text)
+    text = re.sub(r'үгүй', 'уга', text)
+    text = re.sub(r'гүй ', 'го', text)
+    text = re.sub(r'хуй |хүй ', 'лһн', text)
     text = re.sub(r'га|го|гө', 'х', text)
     text = re.sub('ж', 'җ', text)
     text = re.sub('ээс', 'әс', text)
@@ -23,6 +27,11 @@ text3 = st.text_area("Enter text:", value="тэнгэрийн заяа цаги�
 
 st.write(to_kalmyk(text3))
 st.write('теңгрин заян цагин ульрл дахҗ')
+
+text3 = st.text_area("Enter text:", value="нар буцахад эхлэдэг хүйтний наян нэг хоногийг есөн ес гэнэ")
+
+st.write(to_kalmyk(text3))
+st.write('Нарн буцхд эклдг киитниг найн нег хонгиг йисн йис гинә')
 
 
 
