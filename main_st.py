@@ -7,34 +7,61 @@ def to_kalmyk(text):
     text = re.sub('\,', ' , ', text)
     text = re.sub('\!', ' ! ', text)
     text = re.sub('\?', ' ? ', text)
-    text = re.sub(' тэ', ' те', text)
-    text = re.sub(' яв', ' йов', text)
-    text = re.sub(r' ес', ' йис', text)
-    text = re.sub(r' нэг ', ' нег ', text)
-    text = re.sub(r'гэнэ', 'гинә', text)
+    text = re.sub(r'\bтэ', ' те', text)
+    text = re.sub(r'\bяв', 'йов', text)
+    text = re.sub(r'\bес', 'йис', text)
+    text = re.sub(r'\bнэг\b', 'нег', text)
+    text = re.sub(r'гэнэ', 'гинәә', text)
+    text = re.sub(r'\bхүйтн', ' киитн', text)
     # text = re.sub('ийн ', 'ин ', text)
     # text = re.sub('ийг ', 'иг ', text)
-    text = re.sub('ой ', 'а ', text)
-    text = re.sub('эй ', 'ә ', text)
-    text = re.sub('ая', 'ай', text)
-    text = re.sub(r'хуй |хүй |ахүй |ахүй ', 'лһн ', text)
-    text = re.sub('[\w]ээ', 'е', text)
+    text = re.sub(r'\Bой', 'а', text)
+    text = re.sub(r'\Bэй', 'ә', text)
+    text = re.sub(r'\Bая\B', 'ай', text)
+    text = re.sub(r'\Bлга\B|\Bлго\B|\Bлгө\B|\Bлгэ\B|', 'лһ', text)
+    text = re.sub(r'\Bб', 'в', text)
+    text = re.sub(r'\Bцгаа\B|\Bцгоо\B', 'цхаа', text)
+    text = re.sub(r'\Bцгөө\B|\Bцгээ\B', 'цхәә', text)
+    text = re.sub(r'\Bнгуу\B', 'ңһуу', text)
+    text = re.sub(r'\Bнгүү\B', 'ңгүү', text)
+    text = re.sub(r'\Bнгөө\B', 'ңһәә', text)
+    text = re.sub(r'\Bнгээ\B', 'ңгәә', text)
+    text = re.sub(r'\Bгай', 'хаа', text)
+    text = re.sub(r'\Bгэй\B', 'хәә', text)
+
+    text = re.sub(r'\Bхул\B', 'хлаа', text)
+    text = re.sub(r'\Bхүл\B', 'хләә', text)
+    text = re.sub(r'\Bаарай|\Bоорой', 'аараа', text)
+    text = re.sub(r'\Bөөрэй|\Bээрэй', 'әәрәә', text)
+    text = re.sub(r'гтун |гтүн ', 'тн ', text)
+    text = re.sub(r'уузай ', 'вза ', text)
+    text = re.sub(r'үүзэй ', 'взә ', text)
+    text = re.sub(r'тугай ', 'тха ', text)
+    text = re.sub(r'түгэй ', 'тхә ', text)
+    text = re.sub(r'гсад |гсөд |гсөд |гсэд ', 'сд ', text)
+
+    text = re.sub(r'\Bвч', 'вчн', text)
+    text = re.sub(r'\Bчих\B', 'чк', text)
+    text = re.sub(r'\Bсхий\B', 'ск', text)
+    text = re.sub(r'\Bхуй|\Bхүй|\Bахүй|\Bахүй', 'лһн', text)
+    # text = re.sub('[\w]ээ', 'ее', text)
     text = re.sub('ё', 'й', text)
-    text = re.sub(r'гоо', 'ха', text)
-    text = re.sub(r'үгүй ', 'уга ', text)
-    text = re.sub(r'гүй ', 'го', text)
-    text = re.sub(r'нг', 'ң', text)
+    text = re.sub(r'гоо', 'хаа', text)
+    text = re.sub(r'үгүй ', 'угаа ', text)
+    text = re.sub(r'гүй ', 'гоо ', text)
+    # text = re.sub(r'нг', 'ң', text)
     text = re.sub(r'га|го|гө', 'х', text)
     text = re.sub('ж', 'җ', text)
-    text = re.sub('ээс', 'әс', text)
+    text = re.sub(r'\Bээс', 'әәс', text)
     text = re.sub(r'багатур', 'баатр', text)
     text =text.strip()
+    # st.markdown(text)
     text = ' '.join([reduce_symbols(word) for word in text.split(' ')])
-    text = re.sub(' хүйтн', ' киитн', text)
+
     return text
 
 gset = set('аояиэуюәүөе')
-kgset = set('ә')
+# kgset = set('ә')
 
 def reduce_symbols(word):
     i = 0
@@ -47,8 +74,8 @@ def reduce_symbols(word):
                 if first_slog:
                     new_word +=word[i]
                     first_slog = 0
-                elif (word[i] in kgset):
-                    new_word +=word[i]
+                # elif (word[i] in kgset):
+                #     new_word +=word[i]
                 elif i+1 < len(word):
                     if (word[i+1] == word[i]) or (word[i+1]) == 'й':
                         new_word +=word[i]
