@@ -2,6 +2,10 @@ import streamlit as st
 import re
 
 def to_kalmyk(text):
+    text_was_upper = False
+    if text == text.upper():
+        text = text.lower()
+        text_was_upper = True
     text = ' '+text + ' '
     text = re.sub('\.', ' . ', text)
     text = re.sub('\,', ' , ', text)
@@ -12,7 +16,7 @@ def to_kalmyk(text):
     text = re.sub(r'\bес', 'йис', text)
     text = re.sub(r'\bнэг\b', 'нег', text)
     text = re.sub(r'гэнэ', 'гинәә', text)
-    text = re.sub(r'\bхүйтн', ' киитн', text)
+    text = re.sub(r'\bхүйт', ' киит', text)
     # text = re.sub('ийн ', 'ин ', text)
     # text = re.sub('ийг ', 'иг ', text)
     text = re.sub(r'\Bой', 'а', text)
@@ -58,6 +62,8 @@ def to_kalmyk(text):
     # st.markdown(text)
     text = ' '.join([reduce_symbols(word) for word in text.split(' ')])
 
+    if text_was_upper:
+        text = text.upper()
     return text
 
 gset = set('аояиэуюәүөе')
