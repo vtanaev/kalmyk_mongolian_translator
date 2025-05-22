@@ -18,7 +18,7 @@ def to_kalmyk(text):
     text = re.sub(r'\Bой', 'а', text)
     text = re.sub(r'\Bэй', 'ә', text)
     text = re.sub(r'\Bая\B', 'ай', text)
-    text = re.sub(r'\Bлга\B|\Bлго\B|\Bлгө\B|\Bлгэ\B|', 'лһ', text)
+    text = re.sub(r'\Bлга\B|\Bлго\B|\Bлгө\B|\Bлгэ\B', 'лһ', text)
     text = re.sub(r'\Bб', 'в', text)
     text = re.sub(r'\Bцгаа\B|\Bцгоо\B', 'цхаа', text)
     text = re.sub(r'\Bцгөө\B|\Bцгээ\B', 'цхәә', text)
