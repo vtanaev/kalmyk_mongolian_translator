@@ -14,9 +14,33 @@ def to_kalmyk(text):
     text = re.sub(r'\bтэ', ' те', text)
     text = re.sub(r'\bяв', 'йов', text)
     text = re.sub(r'\bес', 'йис', text)
-    text = re.sub(r'\bнэг\b', 'нег', text)
+    text = re.sub(r'\bдэлхий', ' делкәә', text)
+    text = re.sub(r'\bхөвөө', ' көвәә', text)
+    text = re.sub(r'\bнэг\b', ' нег', text)
     text = re.sub(r'гэнэ', 'гинәә', text)
     text = re.sub(r'\bхүйт', ' киит', text)
+    text = re.sub(r'\bхөрс', ' көрс', text)
+    text = re.sub(r'\bдээ', ' дее', text)
+    text = re.sub(r'\bдээ', ' дее', text)
+    text = re.sub(r'\Bдээ\B', 'дә', text)
+    text = re.sub(r'\Bдэ\B', 'д', text)
+    text = re.sub(r'\bгээ', ' гее', text)
+    text = re.sub(r'\bгээ', ' гее', text)
+    text = re.sub(r'\Bгээ\B', 'гә', text)
+    text = re.sub(r'\Bгэ\B', 'г', text)
+    text = re.sub(r'\bсээ', ' сее', text)
+    text = re.sub(r'\bсээ', ' сее', text)
+    text = re.sub(r'\Bсээ\B', 'сәә', text)
+    text = re.sub(r'\Bсэ\B', 'с', text)
+    text = re.sub(r'\bмээ', ' мее', text)
+    text = re.sub(r'\bмээ', ' мее', text)
+    text = re.sub(r'\Bмээ\B', 'мәә', text)
+    text = re.sub(r'\Bмэ\B', 'м', text)
+    text = re.sub(r'\bбээ', ' бее', text)
+    text = re.sub(r'\bбя', ' би', text)
+    text = re.sub(r'\bбээ', ' бее', text)
+    text = re.sub(r'\Bбээ\B', 'бәә', text)
+    text = re.sub(r'\Bбэ\B', 'б', text)
     # text = re.sub('ийн ', 'ин ', text)
     # text = re.sub('ийг ', 'иг ', text)
     text = re.sub(r'\Bой', 'а', text)
@@ -66,6 +90,12 @@ def to_kalmyk(text):
         text = text.upper()
     return text
 
+def to_kalmyk_text(text):
+    words = text.split(' ')
+    for i in range(len(words)):
+        words[i] = to_kalmyk(words[i])
+    return ' '.join(words)
+
 gset = set('аояиэуюәүөе')
 # kgset = set('ә')
 
@@ -80,6 +110,8 @@ def reduce_symbols(word):
                 if first_slog:
                     new_word +=word[i]
                     first_slog = 0
+                elif i > 0 and word[i] ==word[i-1]:
+                    new_word +=word[i]
                 # elif (word[i] in kgset):
                 #     new_word +=word[i]
                 elif i+1 < len(word):
@@ -96,28 +128,28 @@ def reduce_symbols(word):
 
 text1 = st.text_area("Enter text:", value="тэнггэрийн бошгоор")
 
-st.write(to_kalmyk(text1))
+st.write(to_kalmyk_text(text1))
 st.write('теңгрин бошгар')
 
 text2 = st.text_area("Enter text:", value="хийсвээс тэнггэрийн доор, хэлвээс ноёдын доор")
 
-st.write(to_kalmyk(text2))
+st.write(to_kalmyk_text(text2))
 st.write('киисвәс теңгрин дор, келвәс нойдын дор')
 
 text3 = st.text_area("Enter text:", value="тэнггэрийн заяа цагийн улирал дагаж")
 
-st.write(to_kalmyk(text3))
+st.write(to_kalmyk_text(text3))
 st.write('теңгрин заян цагин ульрл дахҗ')
 
 text3 = st.text_area("Enter text:", value="нар буцахад эхлэдэг хүйтний наян нэг хоногийг есөн ес гэнэ")
 
-st.write(to_kalmyk(text3))
+st.write(to_kalmyk_text(text3))
 st.write('Нарн буцхд эклдг киитниг найн нег хонгиг йисн йис гинә')
 #хоёр есийн хүйтэнд хорз архи хөлдөнө 
 
 text3 = st.text_area("Enter text:", value="хоёр есийн хүйтэнд хорз архи хөлдөнө э")
 
-st.write(to_kalmyk(text3))
+st.write(to_kalmyk_text(text3))
 st.write('хойр йисин киитнд хорз әрк көлднә')
 
 
